@@ -32,6 +32,7 @@ router.post('/search', (req, res) => {
         }
     })
 });
+
 // menambahkan data
 router.post('/add', (req, res) => {
     var name = req.body.name;
@@ -87,4 +88,5 @@ router.delete('/remove', (req, res) => {
             }
         })
 });
+
 export default router;
