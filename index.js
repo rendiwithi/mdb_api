@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import customersRoutes from './routes/customer.js';
 import accountRoutes from './routes/account.js';
+import bundleRoutes from './routes/diamond_bundle.js';
 
 const app = express();
 const PORT = 3000;
@@ -10,6 +11,7 @@ app.use(bodyParser.json());
 
 app.use('/customer', customersRoutes);
 app.use('/account', accountRoutes);
+app.use('/bundle', bundleRoutes);
 
 app.get('/', (req, res) => {
     console.log('path /');

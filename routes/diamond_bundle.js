@@ -1,11 +1,11 @@
 import express from 'express';
-import connection from './../database.js';
+import connection from '../database.js';
 const router = express.Router();
 
 // all routes start by /customers
 // melihat list 
 router.get('/list', (req, res) => {
-    connection.query('select * from customer as c', function (error, rows, fields) {
+    connection.query('SELECT * FROM diamond_bundle', function (error, rows, fields) {
         if (error) {
             var data = {
                 'status': 500,
@@ -23,8 +23,8 @@ router.get('/list', (req, res) => {
 });
 
 router.post('/search', (req, res) => {
-    var whatsapp = req.body.whatsapp;
-    connection.query('select * from customer as c WHERE c.whatsapp =?', [whatsapp], function (error, rows, fields) {
+    var id_bundle = req.body.id_bundle;
+    connection.query('SELECT * FROM diamond_bundle WHERE diamond_bundle.id_bundle =?', [id_bundle], function (error, rows, fields) {
         if (error) {
             var data = {
                 'status': 500,
@@ -43,9 +43,10 @@ router.post('/search', (req, res) => {
 
 // menambahkan data
 router.post('/add', (req, res) => {
-    var name = req.body.name;
-    var whatsapp = req.body.whatsapp;
-    connection.query('INSERT INTO customer (name, whatsapp) VALUES (?, ?)', [name, whatsapp],
+    var name_bundle = req.body.name_bundle;
+    var price_bundle = req.body.price_bundle;
+    var total_diamond = req.body.total_diamond;
+    connection.query('INSERT INTO diamond_bundle (name_bundle, price_bundle, total_diamond) VALUES (?, ?, ?)', [name_bundle, price_bundle, total_diamond],
         function (error, rows, fields) {
             if (error) {
                 var data = {
@@ -65,10 +66,11 @@ router.post('/add', (req, res) => {
 
 // mengubah data
 router.put('/change', (req, res) => {
-    var id = req.body.id;
-    var name = req.body.name;
-    var whatsapp = req.body.whatsapp;
-    connection.query('UPDATE customer set name=?, whatsapp=? where id_user = ?', [name, whatsapp, id],
+    var id_bundle = req.body.id_bundle;
+    var name_bundle = req.body.name_bundle;
+    var price_bundle = req.body.price_bundle;
+    var total_diamond = req.body.total_diamond;
+    connection.query('UPDATE diamond_bundle SET name_bundle=?, price_bundle=?, total_diamond=? WHERE diamond_bundle.id_bundle=?', [name_bundle, price_bundle, total_diamond, id_bundle],
         function (error, rows, fields) {
             if (error) {
                 var data = {
@@ -88,10 +90,8 @@ router.put('/change', (req, res) => {
 
 // menghapus data
 router.delete('/remove', (req, res) => {
-    var id = req.body.id;
-    var name = req.body.name;
-    var whatsapp = req.body.whatsapp;
-    connection.query('DELETE FROM customer where id_user = ?', [id],
+    var id_bundle = req.body.id_bundle;
+    connection.query('DELETE FROM diamond_bundle WHERE id_bundle = ?', [id_bundle],
         function (error, rows, fields) {
             if (error) {
                 var data = {
