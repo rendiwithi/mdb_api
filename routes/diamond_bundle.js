@@ -146,4 +146,41 @@ router.get('/sort', (req, res) => {
             }
         })
 });
+router.post('/createprocedure', (req, res) => {
+    connection.query('DELIMITER $$ CREATE PROCEDURE deleteProc(idbund VARCHAR(100)) BEGIN DELETE FROM diamond_bundle WHERE id_bundle = idbund; end $$ DELIMITER ;',
+        function (error, rows, fields) {
+            if (error) {
+                var data = {
+                    'status': 500,
+                    'values': "Error",
+                };
+                res.json(data);
+            } else {
+                var data = {
+                    'status': 200,
+                    'values': "sukses",
+                };
+                res.json(data);
+            }
+        })
+});
+router.delete('/removewithproc', (req, res) => {
+    var id_bundle = req.body.id_bundle;
+    connection.query('call deleteProc(?)', [id_bundle],
+        function (error, rows, fields) {
+            if (error) {
+                var data = {
+                    'status': 500,
+                    'values': "Error",
+                };
+                res.json(data);
+            } else {
+                var data = {
+                    'status': 200,
+                    'values': "sukses",
+                };
+                res.json(data);
+            }
+        })
+});
 export default router;
