@@ -22,7 +22,14 @@ app.get('/', (req, res) => {
             '/add':{"name":"rendi","whatsapp":"098"},
             '/change':{"id":4,"name":"rendi","whatsapp":"098"},
             '/remove':'{"id":4}'
-        }
+        },
+        '/account':{
+            '/list':'langung get',
+            '/search':{"id_account":9},
+            '/add':{"id_":"rendi","whatsapp":"098"},
+            '/change':{"id":4,"name":"rendi","whatsapp":"098"},
+            '/remove':'{"id":4}'
+        },
     };
     res.json(data);
 });
