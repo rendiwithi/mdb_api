@@ -89,8 +89,6 @@ router.put('/change', (req, res) => {
 // menghapus data
 router.delete('/remove', (req, res) => {
     var id = req.body.id;
-    var name = req.body.name;
-    var whatsapp = req.body.whatsapp;
     connection.query('DELETE FROM customer where id_user = ?', [id],
         function (error, rows, fields) {
             if (error) {

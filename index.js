@@ -15,7 +15,16 @@ app.use('/bundle', bundleRoutes);
 
 app.get('/', (req, res) => {
     console.log('path /');
-    res.send("Hello acu");
+    var data = {
+        '/customer':{
+            '/list':'langung get',
+            '/search':{"whatsapp":"098"},
+            '/add':{"name":"rendi","whatsapp":"098"},
+            '/change':{"id":4,"name":"rendi","whatsapp":"098"},
+            '/remove':'{"id":4}'
+        }
+    };
+    res.json(data);
 });
 
 app.listen(PORT, () => console.log(`server run on http://localhost:${PORT}`));
