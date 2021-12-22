@@ -21,6 +21,24 @@ router.get('/list', (req, res) => {
         }
     })
 });
+router.get('/preorder', (req, res) => {
+    var id_bundle = req.body.id_bundle;
+    connection.query('SELECT *, (db.price_bundle*0.02) as pajak, (db.price_bundle+(db.price_bundle*0.02)) as total_harga FROM diamond_bundle as db WHERE id_bundle = ?', [id_bundle], function (error, rows, fields) {
+        if (error) {
+            var data = {
+                'status': 500,
+                'values': "Error",
+            };
+            res.json(data);
+        } else {
+            var data = {
+                'status': 200,
+                'values': rows
+            };
+            res.json(data);
+        }
+    })
+});
 
 router.post('/search', (req, res) => {
     var id_bundle = req.body.id_bundle;
@@ -108,5 +126,24 @@ router.delete('/remove', (req, res) => {
             }
         })
 });
-
+// menghapus data
+router.get('/sort', (req, res) => {
+    var range = req.body.range;
+    connection.query('SELECT * FROM diamond_bundle WHERE total_diamond BETWEEN 0 and ?', [range],
+        function (error, rows, fields) {
+            if (error) {
+                var data = {
+                    'status': 500,
+                    'values': "Error",
+                };
+                res.json(data);
+            } else {
+                var data = {
+                    'status': 200,
+                    'values': "sukses",
+                };
+                res.json(data);
+            }
+        })
+});
 export default router;
